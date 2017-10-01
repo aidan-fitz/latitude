@@ -24,6 +24,7 @@
     // All the combinational logicks
 
     function gotLocation(loc) {
+      console.log("Got location");
       var message = "Device Broadcast: Help me!\n\nID: " + id + "\n";
       message += "lat: " + loc.coords.latitude + ", ";
       message += "lon: " + loc.coords.longitude;
@@ -32,6 +33,10 @@
 
       feedbackEnable = true;
 
+    }
+
+    function gpsError(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
     }
 
     function activate() {

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    // ROM
+    var id = 420;
+
+    // input signals
+    var enable = false;
+    var input = false;
+    var gpsReady = false;
+    var allClear = false;
+
+    // States
+    var IDLE = 0, QUERY_GPS = 1, SEND_SOS = 2;
+
+    var state = IDLE;
+
+    // Output signals
+    var gpsEnable = false;
+    var radioEnable = false;
+    var feedbackEnable = false;
+
+    // All the combinational logicks
+
+    function gotLocation(loc) {
+      var message = "Device Broadcast: Help me!\n\nID: " + id + "\n";
+      message += "lat: " + loc.coords.latitude + ", ";
+      message += "lon: " + loc.coords.longitude;
+
+      alert(message);
+
+      feedbackEnable = true;
+
+    }
+
+    function activate() {
+      if (input && enable) {
+        state = QUERY_GPS;
+        gpsEnable = true;
+
+        navigator.geolocation.getCurrentPosition(gotLocation);
+      }
+    }
+  </script>
+
+</head>
+<body>
+
+  <div>
+    <button type="button" id="input" onclick="input = !input; activate();">Press Me</button>
+    <button type="button" id="enable" onclick="enable = !enable; activate();">Enable</button>
+  </div>
+
+  <div style="background: black">blink</div>
+
+</body>
+</html>

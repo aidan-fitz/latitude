@@ -44,7 +44,7 @@
         state = QUERY_GPS;
         gpsEnable = true;
 
-        navigator.geolocation.getCurrentPosition(gotLocation);
+        navigator.geolocation.getCurrentPosition(gotLocation, gpsError);
       }
     }
   </script>
